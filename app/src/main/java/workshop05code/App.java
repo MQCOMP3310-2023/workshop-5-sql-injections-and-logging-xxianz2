@@ -34,6 +34,7 @@ public class App {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        logger.log(Level.INFO, "Starting program");
         SQLiteConnectionManager wordleDatabaseConnection = new SQLiteConnectionManager("words.db");
 
         wordleDatabaseConnection.createNewDatabase("words.db");
@@ -62,6 +63,7 @@ public class App {
             }
 
         } catch (IOException e) {
+            logger.log(Level.WARNING, "Not able to load", e);
             System.out.println("Not able to load . Sorry!");
             System.out.println(e.getMessage());
             return;
@@ -75,6 +77,7 @@ public class App {
                 guess = scanner.nextLine();
 
                 // validate input
+                logger.log(Level.INFO, "Print only game-related info to the console.");
                 if (!guess.matches("^[a-z]{4}$")) {
                     System.out.println("Invalid input. Please enter a 4-letter word consisting only of lowercase letters.");
                     continue;
@@ -89,6 +92,7 @@ public class App {
                 }
             }
         } catch (NoSuchElementException | IllegalStateException e) {
+            logger.log(Level.WARNING, "print stack trace", e);
             e.printStackTrace();
         }
 
